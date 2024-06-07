@@ -7,20 +7,24 @@
 
     Author:   S.Nastasyak
     Created:  2013-06-21
-	Modified:  28.4.2014. (dsalantic) Special characters removed from BitsShortName, some BitsShortName renamed, tabs aligned
+    Modified:  28.4.2014. (dsalantic) Special characters removed from BitsShortName, some BitsShortName renamed, tabs aligned
+               23.11.2015. (dsalantic) Fixed scale factor for item 041. Shall be 180/2^31.
+               08.05.2017. (ifsnop) Removed wrong compound definition from cat10/di270.
+               24.07.2017. (ifsnop) Changed dataitem name "001" to "000", as per Eurocontrol Definition.
+               16.10.2019. (dsalantic) Added BDS register definition in I250
 
 -->
 
 <Category id="010" name="Transmission of Monosensor Surface Movement Data" ver="1.1">
 
 
-    <DataItem id="001" rule="mandatory">
+    <DataItem id="000" rule="mandatory">
         <DataItemName>Message Type</DataItemName>
         <DataItemDefinition>This data item allows for a more convenient handling of the messages at the receiver side by further defining the type of transaction.</DataItemDefinition>
         <DataItemFormat desc="One-octet fixed length Data Item.">
             <Fixed length="1">
                 <Bits from="8" to="1">
-					<BitsShortName>MsgTyp</BitsShortName>
+                    <BitsShortName>MsgTyp</BitsShortName>
                     <BitsName>Type of msg.</BitsName>
                     <BitsValue val="1">Target Report</BitsValue>
                     <BitsValue val="2">Start of Update Cycle</BitsValue>
@@ -47,7 +51,7 @@
             </Fixed>
         </DataItemFormat>
     </DataItem>
-    
+
     <DataItem id="020" rule="mandatory">
         <DataItemName>Target Report Descriptor</DataItemName>
         <DataItemDefinition>Type and characteristics of the data as transmitted by a system.</DataItemDefinition>
@@ -125,7 +129,7 @@
                         <BitsValue val="2">Ground vehicle</BitsValue>
                         <BitsValue val="3">Helicopter</BitsValue>
                     </Bits>
-                   <Bits bit="1" fx="1">
+                    <Bits bit="1" fx="1">
                         <BitsShortName>FX</BitsShortName>
                         <BitsValue val="0">End of Data Item</BitsValue>
                         <BitsValue val="1">Extension into next extent</BitsValue>
@@ -152,7 +156,7 @@
         </DataItemFormat>
     </DataItem>
 
-   <DataItem id="040" rule="optional">
+    <DataItem id="040" rule="optional">
         <DataItemName>Measured Position in Polar Co-ordinates.</DataItemName>
         <DataItemDefinition>Measured Position of a target in local polar co-ordinates.</DataItemDefinition>
         <DataItemFormat desc="Four-Octet fixed length data item.">
@@ -177,14 +181,14 @@
         <DataItemFormat desc="Eight-octet fixed length Data Item">
             <Fixed length="8">
                 <Bits from="64" to="33" encode="signed">
-					<BitsShortName>Lat</BitsShortName>
-					<BitsName>Latitude in WGS-84 in twos complement.</BitsName>
-                    <BitsUnit scale="0.000005364418029785156" min="-90" max="90">deg</BitsUnit>
+                    <BitsShortName>Lat</BitsShortName>
+                    <BitsName>Latitude in WGS-84 in two's complement.</BitsName>
+                    <BitsUnit scale="0.00000008381903171539306640625" min="-90" max="90">deg</BitsUnit>
                 </Bits>
                 <Bits from="32" to="1" encode="signed">
-					<BitsShortName>Lon</BitsShortName>
-					<BitsName>Longitude in WGS-84 in twos complement.</BitsName>
-                    <BitsUnit scale="0.000005364418029785156" min="-180" max="180">deg</BitsUnit>
+                    <BitsShortName>Lon</BitsShortName>
+                    <BitsName>Longitude in WGS-84 in two's complement.</BitsName>
+                    <BitsUnit scale="0.00000008381903171539306640625" min="-180" max="180">deg</BitsUnit>
                 </Bits>
             </Fixed>
         </DataItemFormat>
@@ -238,7 +242,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="12" to="1" encode="octal">
-					<BitsShortName>Mod3A</BitsShortName>
+                    <BitsShortName>Mod3A</BitsShortName>
                     <BitsName>Mode-3/A reply in octal representation</BitsName>
                 </Bits>
             </Fixed>
@@ -261,7 +265,7 @@
                     <BitsValue val="1">Garbled code</BitsValue>
                 </Bits>
                 <Bits from="14" to="1" encode="signed">
-					<BitsShortName>FL</BitsShortName>
+                    <BitsShortName>FL</BitsShortName>
                     <BitsName>Flight Level</BitsName>
                     <BitsUnit scale="0.25">FL</BitsUnit>
                 </Bits>
@@ -275,7 +279,7 @@
         <DataItemFormat desc="Two-octet fixed length Data Item.">
             <Fixed length="2">
                 <Bits from="16" to="1" encode="signed">
-					<BitsShortName>MHeight</BitsShortName>
+                    <BitsShortName>MHeight</BitsShortName>
                     <BitsName>Measured Height</BitsName>
                     <BitsUnit scale="6.25" min="-204800" max="204800">ft</BitsUnit>
                 </Bits>
@@ -295,14 +299,14 @@
             </Fixed>
         </DataItemFormat>
     </DataItem>
-    
+
     <DataItem id="140" rule="mandatory">
         <DataItemName>Time of Day</DataItemName>
         <DataItemDefinition>Absolute time stamping expressed as UTC.</DataItemDefinition>
         <DataItemFormat desc="Three-octet fixed length Data Item.">
             <Fixed length="3">
                 <Bits from="24" to="1">
-					<BitsShortName>ToD</BitsShortName>
+                    <BitsShortName>ToD</BitsShortName>
                     <BitsName>Time of Day</BitsName>
                     <BitsUnit scale="0.0078125">s</BitsUnit>
                 </Bits>
@@ -321,7 +325,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="12" to="1">
-					<BitsShortName>TrkNb</BitsShortName>
+                    <BitsShortName>TrkNb</BitsShortName>
                     <BitsName>Track number</BitsName>
                 </Bits>
             </Fixed>
@@ -430,19 +434,19 @@
         <DataItemFormat desc="Four-Octet fixed length data item.">
             <Fixed length="4">
                 <Bits from="32" to="17">
-					<BitsShortName>GS</BitsShortName>
+                    <BitsShortName>GS</BitsShortName>
                     <BitsName>Ground Speed</BitsName>
                     <BitsUnit scale="0.00006103515625">NM/s</BitsUnit>
                 </Bits>
                 <Bits from="16" to="1">
-					<BitsShortName>TA</BitsShortName>
+                    <BitsShortName>TA</BitsShortName>
                     <BitsName>Track Angle clockwise reference to True North</BitsName>
                     <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                 </Bits>
             </Fixed>
         </DataItemFormat>
     </DataItem>
-    
+
     <DataItem id="202" rule="optional">
         <DataItemName>Calculated Track Velocity in Cartesian Coordinates</DataItemName>
         <DataItemDefinition>Calculated track velocity expressed in Cartesian Coordinates, in two’s complement representation.</DataItemDefinition>
@@ -453,7 +457,7 @@
                     <BitsName>Vx</BitsName>
                     <BitsUnit scale="0.25" min="-8192" max="8191.75">m/s</BitsUnit>
                 </Bits>
-                <Bits from="1" to="16" encode="signed">
+                <Bits from="16" to="1" encode="signed">
                     <BitsShortName>Vy</BitsShortName>
                     <BitsName>Vy</BitsName>
                     <BitsUnit scale="0.25" min="-8192" max="8191.75">m/s</BitsUnit>
@@ -486,8 +490,8 @@
         <DataItemDefinition>Target address (ICAO 24-bit address) assigned uniquely to each Target.</DataItemDefinition>
         <DataItemFormat desc="Three-octet fixed length Data Item.">
             <Fixed length="3">
-                <Bits from="24" to="1">
-					<BitsShortName>TAddr</BitsShortName>
+                <Bits from="24" to="1" encode="hex">
+                    <BitsShortName>TAddr</BitsShortName>
                     <BitsName>24-bits Target Address</BitsName>
                 </Bits>
             </Fixed>
@@ -512,7 +516,7 @@
                     <BitsConst>0</BitsConst>
                 </Bits>
                 <Bits from="48" to="1" encode="6bitschar">
-					<BitsShortName>TId</BitsShortName>
+                    <BitsShortName>TId</BitsShortName>
                     <BitsName>Characters 1-8 (coded on 6 bits each) defining target identification</BitsName>
                 </Bits>
             </Fixed>
@@ -524,99 +528,80 @@
         <DataItemDefinition>Mode S Comm B data as extracted from the aircraft transponder.</DataItemDefinition>
         <DataItemFormat desc="Repetitive Data Item starting with a one-octet Field Repetition Indicator (REP) followed by at least one BDS report comprising one seven octet BDS register and one octet BDS code.">
             <Repetitive>
-                <Fixed length="8">
-                    <Bits from="64" to="9">
-                        <BitsShortName>MB_Data</BitsShortName>
-                        <BitsName>(MB Data) 56-bit message conveying Mode S Comm B message data</BitsName>
-                    </Bits>
-                    <Bits from="8" to="5">
-                        <BitsShortName>BDS1</BitsShortName>
-                        <BitsName>Comm B Data Buffer Store 1 Address</BitsName>
-                    </Bits>
-                    <Bits from="4" to="1">
-                        <BitsShortName>BDS2</BitsShortName>
-                        <BitsName>Comm B Data Buffer Store 2 Address</BitsName>
-                    </Bits>
-                </Fixed>
+               <BDS/>
             </Repetitive>
         </DataItemFormat>
     </DataItem>
 
-     <DataItem id="270" rule="optional">
+    <DataItem id="270" rule="optional">
         <DataItemName>Target Size and Orientation</DataItemName>
-        <DataItemDefinition>Target size defined as lenght and with of the detected target, and orientation.</DataItemDefinition>
+        <DataItemDefinition>Target size defined as length and with of the detected target, and orientation.</DataItemDefinition>
         <DataItemFormat desc="Variable Data Item, comprising a first part of one octet, followed by one-octed as necessary.">
-            <Compound>
-                <Variable>
-                    <Fixed length="1">
-                        <Bits from="8" to="2">
-                            <BitsShortName>Lenght</BitsShortName>
-                            <BitsName>Lenght</BitsName>
-                            <BitsUnit scale="1">m</BitsUnit>
-                        </Bits>
-                        <Bits bit="1" fx="1">
-                            <BitsShortName>FX</BitsShortName>
-                            <BitsName>Extension Indicator</BitsName>
-                            <BitsValue val="0">End of Data Item</BitsValue>
-                            <BitsValue val="1">Extension into next extent</BitsValue>
-                        </Bits>
-                    </Fixed>
-                </Variable>
-                <Variable>
-                    <Fixed length="1">
-                        <Bits from="8" to="2">
-							<BitsShortName>Ori</BitsShortName>
-                            <BitsName>Orientation</BitsName>
-                            <BitsUnit scale="2.81">deg.</BitsUnit>
-                        </Bits>
-                        <Bits bit="1" fx="1">
-                            <BitsShortName>FX</BitsShortName>
-                            <BitsName>Extension Indicator</BitsName>
-                            <BitsValue val="0">End of Data Item</BitsValue>
-                            <BitsValue val="1">Extension into next extent</BitsValue>
-                        </Bits>
-                    </Fixed>
-                </Variable>
-                <Variable>
-                    <Fixed length="1">
-                         <Bits from="8" to="2">
-                            <BitsShortName>Width</BitsShortName>
-                            <BitsName>Width</BitsName>
-                            <BitsUnit scale="1">m</BitsUnit>
-                        </Bits>
-                        <Bits bit="1" fx="1">
-                            <BitsShortName>FX</BitsShortName>
-                            <BitsName>Extension Indicator</BitsName>
-                            <BitsValue val="0">End of Data Item</BitsValue>
-                            <BitsValue val="1">Extension into next extent</BitsValue>
-                        </Bits>
-                    </Fixed>
-                </Variable>
-            </Compound>
+            <Variable>
+                <Fixed length="1">
+                    <Bits from="8" to="2">
+                        <BitsShortName>Length</BitsShortName>
+                        <BitsName>Length</BitsName>
+                        <BitsUnit scale="1">m</BitsUnit>
+                    </Bits>
+                    <Bits bit="1" fx="1">
+                        <BitsShortName>FX</BitsShortName>
+                        <BitsName>Extension Indicator</BitsName>
+                        <BitsValue val="0">End of Data Item</BitsValue>
+                        <BitsValue val="1">Extension into next extent</BitsValue>
+                    </Bits>
+                </Fixed>
+                <Fixed length="1">
+                    <Bits from="8" to="2">
+                        <BitsShortName>Ori</BitsShortName>
+                        <BitsName>Orientation</BitsName>
+                        <BitsUnit scale="2.81">deg.</BitsUnit>
+                    </Bits>
+                    <Bits bit="1" fx="1">
+                        <BitsShortName>FX</BitsShortName>
+                        <BitsName>Extension Indicator</BitsName>
+                        <BitsValue val="0">End of Data Item</BitsValue>
+                        <BitsValue val="1">Extension into next extent</BitsValue>
+                    </Bits>
+                </Fixed>
+                <Fixed length="1">
+                    <Bits from="8" to="2">
+                        <BitsShortName>Width</BitsShortName>
+                        <BitsName>Width</BitsName>
+                        <BitsUnit scale="1">m</BitsUnit>
+                    </Bits>
+                    <Bits bit="1" fx="1">
+                        <BitsShortName>FX</BitsShortName>
+                        <BitsName>Extension Indicator</BitsName>
+                        <BitsValue val="0">End of Data Item</BitsValue>
+                        <BitsValue val="1">Extension into next extent</BitsValue>
+                    </Bits>
+                </Fixed>
+            </Variable>
         </DataItemFormat>
     </DataItem>
 
     <DataItem id="280" rule="optional">
         <DataItemName>Special Purpose</DataItemName>
         <DataItemDefinition>Special information</DataItemDefinition>
-        <DataItemFormat desc="Repetitive data lenght item">
+        <DataItemFormat desc="Repetitive data length item">
             <Repetitive>
                 <Fixed length="2">
-                         <Bits from="16" to="9" encode="signed">
-                            <BitsShortName>DRHO</BitsShortName>
-                            <BitsName>DRHO</BitsName>
-                            <BitsUnit scale="1" min="-127" max="127">m</BitsUnit>
-                        </Bits>
-                        <Bits bit="8" to="1" encode="signed">
-                            <BitsShortName>DTHETA</BitsShortName>
-                            <BitsName>DTHETA</BitsName>
-                            <BitsUnit scale="0.15" min="-19.05" max="19.05">deg</BitsUnit>
-                        </Bits>
-                    </Fixed>         
+                    <Bits from="16" to="9" encode="signed">
+                        <BitsShortName>DRHO</BitsShortName>
+                        <BitsName>DRHO</BitsName>
+                        <BitsUnit scale="1" min="-127" max="127">m</BitsUnit>
+                    </Bits>
+                    <Bits from="8" to="1" encode="signed">
+                        <BitsShortName>DTHETA</BitsShortName>
+                        <BitsName>DTHETA</BitsName>
+                        <BitsUnit scale="0.15" min="-19.05" max="19.05">deg</BitsUnit>
+                    </Bits>
+                </Fixed>         
             </Repetitive>
         </DataItemFormat>
     </DataItem>
-    
+
     <DataItem id="300" rule="optional">
         <DataItemName>Vehicle Fleet Identification</DataItemName>
         <DataItemDefinition>Vehicle fleet identification number.</DataItemDefinition>
@@ -672,27 +657,27 @@
     <DataItem id="500" rule="optional">
         <DataItemName>Standard Deviation of POsition</DataItemName>
         <DataItemDefinition>Standard Deviation of Position</DataItemDefinition>
-        <DataItemFormat desc="Four octed fixed lenght Data Item.">
+        <DataItemFormat desc="Four octed fixed length Data Item.">
             <Fixed length="4">
                 <Bits from="32" to="25">
                     <BitsShortName>Qx</BitsShortName>
                     <BitsName>Standard deviation X component</BitsName>
-					<BitsUnit scale="0.25"/>
+                    <BitsUnit scale="0.25"/>
                 </Bits>
                 <Bits from="24" to="17">
                     <BitsShortName>Qy</BitsShortName>
                     <BitsName>Standard deviation Y component</BitsName>
-					<BitsUnit scale="0.25"/>
+                    <BitsUnit scale="0.25"/>
                 </Bits>
                 <Bits from="16" to="1" encode="signed">
                     <BitsShortName>Qxy</BitsShortName>
                     <BitsName>Q(X,Y)</BitsName>
-					<BitsUnit scale="0.25"/>
+                    <BitsUnit scale="0.25"/>
                 </Bits>
             </Fixed>
         </DataItemFormat>
     </DataItem>
-    
+
     <DataItem id="550" rule="optional">
         <DataItemName>System Status</DataItemName>
         <DataItemDefinition>Iformation concerning the configuration and status of a System.</DataItemDefinition>
@@ -729,7 +714,7 @@
                     <BitsValue val="0">Test Target Operative</BitsValue>
                     <BitsValue val="1">Test Target Failure</BitsValue>
                 </Bits>
-                 <Bits from="2" to="1">
+                <Bits from="2" to="1">
                     <BitsShortName>spare</BitsShortName>
                     <BitsName>Spare bits set to zero</BitsName>
                     <BitsConst>0</BitsConst>
@@ -737,25 +722,40 @@
             </Fixed>
         </DataItemFormat>
     </DataItem>
-    
+
+    <DataItem id="RE">
+        <DataItemName>Reserved Expansion Field</DataItemName>
+        <DataItemDefinition>
+            Expansion
+        </DataItemDefinition>
+        <DataItemFormat desc="Explicit data item.">
+            <Explicit>
+                <Fixed length="1">
+                    <Bits from="8" to="1">
+                        <BitsShortName>VAL</BitsShortName>
+                    </Bits>
+                </Fixed>
+            </Explicit>
+        </DataItemFormat>
+    </DataItem>
 
     <DataItem id="SP" rule="optional"> 
         <DataItemName>Special Purpose</DataItemName>
         <DataItemDefinition>Special information</DataItemDefinition>
-        <DataItemFormat desc="Repetitive data lenght item">
+        <DataItemFormat desc="Repetitive data length item">
             <Explicit> 
                 <Fixed length="1"> 
                     <Bits from="8" to="1"> 
-						<BitsShortName>SPval</BitsShortName>
+                        <BitsShortName>SPval</BitsShortName>
                     </Bits> 
                 </Fixed>          
             </Explicit> 
         </DataItemFormat> 
     </DataItem>
-     
+
     <UAP>
         <UAPItem bit="0" frn="1" len="2">010</UAPItem>
-        <UAPItem bit="1" frn="2" len="1">001</UAPItem>
+        <UAPItem bit="1" frn="2" len="1">000</UAPItem>
         <UAPItem bit="2" frn="3" len="1+">020</UAPItem>
         <UAPItem bit="3" frn="4" len="3">140</UAPItem>
         <UAPItem bit="4" frn="5" len="8">041</UAPItem>
